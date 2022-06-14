@@ -1,5 +1,17 @@
 import csv
-from re import I
+
+class Stop:
+    def __init__(self, id, name, desc, lat, lon):
+        self.id = id
+        self.name = name
+        self.desc = desc
+        self.lat = lat
+        self.lon = lon
+    
+    def to_string(self):
+        print("Para el valor " + self.id)
+        print("---------------------------------------")
+        print("resultado de to_string-> " + str(self.id) + " " + str(self.name) + " " + str(self.desc) + " " + str(self.lat) + " "+ str(self.lon) + " ")
 
 def crear_diccionario():
     diccionario = {
@@ -173,11 +185,15 @@ def read_data(file):
     """
     return dic
 
+def convert_to_object(clave, dic):
+    elemento = dic.get(clave)
+    s =  Stop(elemento["id"], elemento["name"], elemento["description"], elemento["lat"], elemento["lon"])
+    return s
+
 def get_name_description(clave, dic):
     print("Para la clave "+clave+":")
-    if dic.get(clave) == None: raise ValueError("No existe")
-
     print("---------------------")
+    if dic.get(clave) == None: raise ValueError("No existe")
     print(dic.get(clave)["name"])
     print(dic.get(clave)["description"]) 
     return dic.get(clave)["name"], dic.get(clave)["description"]
@@ -216,24 +232,65 @@ if __name__ == "__main__":
     f2 = "stops_data.csv"
     diccionario = crear_diccionario()
     ###############ejercicio 3##################
-    #1
+    print("*********************************")
+    print("EJERCICIO 3")
+    print("*********************************")
+    #1 para 1080 que sí existe
     try:
         nombre, descripcion = get_name_description('1080',diccionario)
     except ValueError as e:
         print("Ha saltado el error: " + str(e))
-    #2
-
+    #2 para 10 que no existe
     try:
-        lista = get_min('10', diccionario)
-        print(lista)
+        nombre, descripcion = get_name_description('10',diccionario)
     except ValueError as e:
         print("Ha saltado el error: " + str(e))
-        
+
+    print("*********************************")
+    print("EJERCICIO 4")
+    print("*********************************")
+    #1 para una longitud buena
     try:
         clave = search_by_lon(728257.03, diccionario)
         print(clave)
     except ValueError as e:
-        if str(e)=="No existe": print ("Error de clave")
-        else: print ("Error de tipo")
+        if str(e)=="No existe": print ("Error de clave: " + str(e))
+        else: print ("Error de tipo: " + str(e))
+    #2 para una longitud que no existe
+    try:
+        clave = search_by_lon(7282.03, diccionario)
+        print(clave)
+    except ValueError as e:
+        if str(e)=="No existe": print ("Error de clave: " + str(e))
+        else: print ("Error de tipo: " + str(e))
+    #3 para longitud que no es float, en este caso se lo pasamos como string
+    try:
+        clave = search_by_lon("728257.03", diccionario)
+        print(clave)
+    except ValueError as e:
+        if str(e)=="No existe": print ("Error de clave: " + str(e))
+        else: print ("Error de tipo: " + str(e))
+
+    print("*********************************")
+    print("EJERCICIO 5")
+    print("*********************************")
+    #1 elemento que cumple la condicion
+    try:
+        lista = get_min('1023', diccionario)
+        print(lista)
+    except ValueError as e:
+        print("Ha saltado el error: " + str(e))
+    #2 elemento que no cumple la condicion
+    try:
+        lista = get_min('100', diccionario)
+        print(lista)
+    except ValueError as e:
+        print("Ha saltado el error: " + str(e))
+    print("*********************************")
+    print("EJERCICIO 7")
+    print("*********************************")
+    s = convert_to_object("1080", diccionario)
+    s.to_string()
+    
     
     #diccionario = read_data(file)

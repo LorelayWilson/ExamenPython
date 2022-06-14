@@ -184,21 +184,56 @@ def get_name_description(clave, dic):
 
 def search_by_lon(lon, dic):
     clave = -1
+    print("Para la longitud " + str(lon))
+    print("-------------------")
     if type(lon)!=float: raise ValueError("No es de tipo float")
     for i in dic:
         if(float(dic.get(i)["lon"])==lon):
             clave = i
     if clave == -1: raise ValueError("No existe")
-    print(clave)
+    
+    return clave
+
+def get_min(k, d):
+    lista = []
+    print("Para el valor " + k)
+    print("------------")
+    for i in d:
+        dic={
+            'description': d.get(i)['description'],
+            'name': d.get(i)['name']
+        }
+        if i<k:
+            lista.append(dic)
+
+    if lista == []: raise ValueError("No hay elementos")
+
+    return lista  
 
 
 if __name__ == "__main__":
     f1 = "stops.csv"
     f2 = "stops_data.csv"
     diccionario = crear_diccionario()
-    search_by_lon(728257.03, diccionario)
+    ###############ejercicio 3##################
+    #1
     try:
         nombre, descripcion = get_name_description('1080',diccionario)
     except ValueError as e:
-        print("Ha saltado el error")
+        print("Ha saltado el error: " + str(e))
+    #2
+
+    try:
+        lista = get_min('10', diccionario)
+        print(lista)
+    except ValueError as e:
+        print("Ha saltado el error: " + str(e))
+        
+    try:
+        clave = search_by_lon(728257.03, diccionario)
+        print(clave)
+    except ValueError as e:
+        if str(e)=="No existe": print ("Error de clave")
+        else: print ("Error de tipo")
+    
     #diccionario = read_data(file)

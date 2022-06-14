@@ -1,8 +1,4 @@
-import csv
-from re import I
-
-def crear_diccionario():
-    diccionario = {
+{
     '1020': {'description': 'PSEG ALAMEDA 14 (DAVANT JARDÍ VIA CENTRAL) - VALÈNCIA',
              'id': '1020',
              'lat': '4372694.493',
@@ -153,52 +149,4 @@ def crear_diccionario():
              'lat': '4373073.313',
              'lon': '728257.03',
              'name': 'Ramon Llull - Bernat Fenollar'}
-    }
-    return diccionario
-    
-def read_data(file):
-    dic ={
-
-    }
-    """with open(f1, 'r') as file1:
-        with open(f2,'r') as file2:
-            reader1 = csv.reader(file1)
-            reader2 = csv.reader(file2)
-            for row in reader1:
-                dic[row[0]] = {"description":row[3],
-                                "id":"",
-                                "lat":"",
-                                "lon":"",
-                                "name":row[2]}
-    """
-    return dic
-
-def get_name_description(clave, dic):
-    print("Para la clave "+clave+":")
-    if dic.get(clave) == None: raise ValueError("No existe")
-
-    print("---------------------")
-    print(dic.get(clave)["name"])
-    print(dic.get(clave)["description"]) 
-    return dic.get(clave)["name"], dic.get(clave)["description"]
-
-def search_by_lon(lon, dic):
-    clave = -1
-    if type(lon)!=float: raise ValueError("No es de tipo float")
-    for i in dic:
-        if(float(dic.get(i)["lon"])==lon):
-            clave = i
-    if clave == -1: raise ValueError("No existe")
-    print(clave)
-
-
-if __name__ == "__main__":
-    f1 = "stops.csv"
-    f2 = "stops_data.csv"
-    diccionario = crear_diccionario()
-    search_by_lon(728257.03, diccionario)
-    try:
-        nombre, descripcion = get_name_description('1080',diccionario)
-    except ValueError as e:
-        print("Ha saltado el error")
-    #diccionario = read_data(file)
+}

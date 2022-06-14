@@ -1,13 +1,21 @@
 import csv
 
 def read_data(f1, f2):
-    diccionario = {}
+    dic = {}
     with open(f1, 'r') as file1:
         with open(f2,'r') as file2:
             reader1 = csv.reader(file1)
             reader2 = csv.reader(file2)
-            for row in reader2:
-                print(row)  
+            for row in reader1:
+                dic[row[0]] = {"description":row[3],
+                                "id":"",
+                                "lat":"",
+                                "lon":"",
+                                "name":row[2]}
+
+            for row 
+    
+    print(dic)
 
 
 
